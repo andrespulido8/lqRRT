@@ -9,23 +9,21 @@ It provides an action for moving said reference to that goal (Move.action).
 
 """
 from __future__ import division
+
+import actionlib
+import cv2  # for occupancy grid analysis
 import numpy as np
 import numpy.linalg as npl
-import cv2  # for occupancy grid analysis
-
 import rospy
-import actionlib
-import tf.transformations as trns
-
-from nav_msgs.msg import Odometry, OccupancyGrid
-from geometry_msgs.msg import Point32, PointStamped, Pose, PoseArray, \
-                              PoseStamped, WrenchStamped, PolygonStamped
-
-from behaviors import params, car, boat, escape
-from lqrrt_ros.msg import MoveAction, MoveFeedback, MoveResult
-
 # Check scipy version for assume_sorted argument in interp1d
 import scipy.interpolate
+import tf.transformations as trns
+from behaviors import boat, car, escape, params
+from geometry_msgs.msg import (Point32, PointStamped, PolygonStamped, Pose,
+                               PoseArray, PoseStamped, WrenchStamped)
+from lqrrt_ros.msg import MoveAction, MoveFeedback, MoveResult
+from nav_msgs.msg import OccupancyGrid, Odometry
+
 if int(scipy.__version__.split('.')[1]) < 16:
     def interp1d(*args, **kwargs):
         kwargs.pop('assume_sorted', None)
@@ -1146,7 +1144,7 @@ class LQRRT_Node(object):
         # Construct pose array and publish
         pose_list = []
         stamp = rospy.Time.now()
-        for ID in xrange(self.tree.size):
+        for ID in range(self.tree.size):
             x = self.tree.state[ID]
             pose_list.append(self.pack_pose(x))
         if len(pose_list):

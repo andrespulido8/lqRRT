@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Class for lqrrt constraints.
 

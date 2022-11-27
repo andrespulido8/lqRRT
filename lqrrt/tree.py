@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Class for an lqrrt tree.
 Each node in the tree has:

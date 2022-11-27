@@ -9,16 +9,17 @@ To get the state or effort at some time t, use the functions get_state(t) and ge
 ################################################# DEPENDENCIES
 
 from __future__ import division
+
 import time
 
 import numpy as np
 import numpy.linalg as npl
-
-from tree import Tree
-from constraints import Constraints
-
 # Check scipy version for assume_sorted argument in interp1d
 import scipy.interpolate
+
+from .constraints import Constraints
+from .tree import Tree
+
 if int(scipy.__version__.split('.')[1]) < 16:
     def interp1d(*args, **kwargs):
         kwargs.pop('assume_sorted', None)
@@ -185,7 +186,7 @@ class Planner:
                 goal_bias = [goal_bias] * self.nstates
 
             # Set the number of tries for sample feasibility
-            if xrand_gen > 0:
+            if xrand_gen is not None:
                 tries_limit = xrand_gen
             else:
                 tries_limit = 10

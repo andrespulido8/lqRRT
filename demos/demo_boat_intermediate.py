@@ -16,8 +16,10 @@ Twist states and wrench are body-frame.
 ################################################# DEPENDENCIES
 
 from __future__ import division
+
 import numpy as np
 import numpy.linalg as npl
+
 import lqrrt
 
 ################################################# PHYSICAL PARAMETERS
@@ -274,8 +276,8 @@ for i, t in enumerate(t_arr):
 ################################################# VISUALIZATION
 
 print("\n...plotting...")
-from matplotlib import pyplot as plt
 import matplotlib.animation as ani
+from matplotlib import pyplot as plt
 
 # Plot results
 fig1 = plt.figure()
@@ -332,7 +334,7 @@ dx = 0; dy = 1
 ax1.set_xlabel('- State {} +'.format(dx))
 ax1.set_ylabel('- State {} +'.format(dy))
 ax1.grid(True)
-for ID in xrange(planner.tree.size):
+for ID in range(planner.tree.size):
     x_seq = np.array(planner.tree.x_seq[ID])
     if ID in planner.node_seq:
         ax1.plot((x_seq[:, dx]), (x_seq[:, dy]), color='r', zorder=2)
@@ -368,7 +370,7 @@ dx = 0; dy = 1
 ax2.set_xlabel('- State {} +'.format(dx))
 ax2.set_ylabel('- State {} +'.format(dy))
 ax2.grid(True)
-for ID in xrange(planner.tree.size):
+for ID in range(planner.tree.size):
     x_seq = np.array(planner.tree.x_seq[ID])
     if ID in planner.node_seq:
         ax2.plot((x_seq[:, dx]), (x_seq[:, dy]), color='r', zorder=2)
