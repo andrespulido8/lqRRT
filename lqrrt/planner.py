@@ -385,6 +385,7 @@ class Planner:
 
             # Compute effort using local LQR policy
             e = self.erf(np.copy(xtar), np.copy(x))
+            # print("K: ", K)  # TODO:investigate why K changes shape
             u = K.dot(e)
 
             # Step forward dynamics
@@ -434,7 +435,7 @@ class Planner:
             u_seq.append(u)
 
             # Get next control policy
-            K = self.lqr(x, u)[1]
+            # K = self.lqr(x, u)[1]  # TODO:investigate why K changes shape
 
         return (x_seq, u_seq)
 
